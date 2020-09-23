@@ -9,7 +9,6 @@ resource "aws_s3_bucket" "data" {
 }
 
 resource "aws_s3_bucket" "data_science" {
-  # bucket is not encrypted
   bucket = "${local.resource_prefix.value}-data-science"
   acl    = "private"
   versioning {
