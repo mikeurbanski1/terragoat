@@ -1,51 +1,3 @@
-resource "aws_instance" "web_host" {
-  # ec2 have plain text secrets in user data
-  ami           = "${var.ami}"
-  instance_type = "t2.nano"
-
-  vpc_security_group_ids = [
-  "${aws_security_group.web-node.id}"]
-  subnet_id = "${aws_subnet.web_subnet.id}"
-  user_data = <<EOF
-#! /bin/bash
-sudo apt-get update
-sudo apt-get install -y apache2
-sudo systemctl start apache2
-sudo systemctl enable apache2
-export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMAAA
-export AWS_SECRET_ACCESS_KEY=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
-export AWS_DEFAULT_REGION=us-west-2
-echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
-EOF
-  tags = {
-    Name = "${local.resource_prefix.value}-ec2"
-  }
-}
-
-resource "aws_ebs_volume" "web_host_storage" {
-  # unencrypted volume
-  availability_zone = "${var.availability_zone}"
-  #encrypted         = false  # Setting this causes the volume to be recreated on apply 
-  size = 1
-  tags = {
-    Name = "${local.resource_prefix.value}-ebs"
-  }
-}
-
-resource "aws_ebs_snapshot" "example_snapshot" {
-  # ebs snapshot without encryption
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
-  description = "${local.resource_prefix.value}-ebs-snapshot"
-  tags = {
-    Name = "${local.resource_prefix.value}-ebs-snapshot"
-  }
-}
-
-resource "aws_volume_attachment" "ebs_att" {
-  device_name = "/dev/sdh"
-  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
-  instance_id = "${aws_instance.web_host.id}"
-}
 
 resource "aws_security_group" "web-node" {
   # security group is open to the world in SSH port
@@ -153,34 +105,6 @@ resource "aws_network_interface" "web-eni" {
   tags = {
     Name = "${local.resource_prefix.value}-primary_network_interface"
   }
-}
-
-# VPC Flow Logs to S3
-resource "aws_flow_log" "vpcflowlogs" {
-  log_destination      = aws_s3_bucket.flowbucket.arn
-  log_destination_type = "s3"
-  traffic_type         = "ALL"
-  vpc_id               = aws_vpc.web_vpc.id
-
-  tags = {
-    Name        = "${local.resource_prefix.value}-flowlogs"
-    Environment = local.resource_prefix.value
-  }
-}
-
-resource "aws_s3_bucket" "flowbucket" {
-  bucket        = "${local.resource_prefix.value}-flowlogs"
-  force_destroy = true
-
-  tags = {
-    Name        = "${local.resource_prefix.value}-flowlogs"
-    Environment = local.resource_prefix.value
-  }
-}
-
-output "ec2_public_dns" {
-  description = "Web Host Public DNS name"
-  value       = aws_instance.web_host.public_dns
 }
 
 output "vpc_id" {
