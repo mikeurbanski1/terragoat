@@ -2,15 +2,19 @@ name: build
 on:
   pull_request
 jobs:
-  checkov-job:
+  scan:
     runs-on: ubuntu-latest
-    name: checkov-action
+    name: bridgecrew-action
+    strategy:
+      matrix:
+        python-version: [3.7]
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Run Checkov action
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
         with:
-          directory: terraform/
+          python-version: ${{ matrix.python-version }}
+      - name: Scan with Bridgecrew
+        run: |
+          pip install -U bridgecrew
+          bridgecrew -d terraform/aws --external-checks-git https://github.com/bridgecrewio/sample-custom-checks.git//external_checks
