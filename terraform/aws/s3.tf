@@ -135,12 +135,11 @@ resource "aws_s3_bucket" "conf6" {
 }
 
 resource "aws_s3_bucket" "conf7" {
-  bucket = "bc-confidential-6"
+  bucket = "bc-confidential-7"
   force_destroy = true
   tags = {
     DataClassification = "Public"
   }
-
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
