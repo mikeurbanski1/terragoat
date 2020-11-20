@@ -97,9 +97,6 @@ resource "aws_s3_bucket" "conf3" {
 resource "aws_s3_bucket" "conf4" {
   bucket = "bc-confidential-4"
   force_destroy = true
-  tags = {
-    DataClassification = "Highly confidential"
-  }
 }
 
 resource "aws_s3_bucket" "conf5" {
