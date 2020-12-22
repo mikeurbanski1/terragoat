@@ -46,7 +46,7 @@ resource "aws_instance" "i1" {
   }
 }
 
-resource "aws_instance" "i1" {
+resource "aws_instance" "i2" {
   name = "i1"
   tags = {
     asknowID = "123"
