@@ -47,10 +47,29 @@ resource "aws_instance" "i1" {
 }
 
 resource "aws_instance" "i2" {
-  name = "i1"
+  name = "i2"
   tags = {
     asknowID = "123"
     atc = "123"
     os = "rhel"
+  }
+}
+
+resource "aws_instance" "i3" {
+  name = "i3"
+  tags = {
+    asknowID = "123"
+    atc = "123"
+    sa_id = "123"
+    os = "xyz"
+  }
+}
+
+resource "aws_instance" "i4" {
+  name = "i4"
+  tags = {
+    asknowID = "123"
+    atc = "123"
+    sa_id = "123"
   }
 }
