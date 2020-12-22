@@ -73,3 +73,13 @@ resource "aws_instance" "i4" {
     sa_id = "123"
   }
 }
+
+resource "aws_vpc" "v2" {
+  name = "v2"
+  tags = {
+    asknowID = "123"
+    atc = "123"
+    sa_id = "123"
+  }
+}
+
