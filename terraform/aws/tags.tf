@@ -35,3 +35,22 @@ resource "aws_s3_bucket" "b2" {
     sa_id = "123"
   }
 }
+
+resource "aws_instance" "i1" {
+  name = "i1"
+  tags = {
+    asknowID = "123"
+    atc = "123"
+    sa_id = "123"
+    os = "windows"
+  }
+}
+
+resource "aws_instance" "i1" {
+  name = "i1"
+  tags = {
+    asknowID = "123"
+    atc = "123"
+    os = "rhel"
+  }
+}
