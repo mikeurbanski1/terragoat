@@ -30,8 +30,10 @@ stages:
       # However the SED command does not remove the lines from the source file. 
       # To Remove the lines from the source file itself, use the -i option with SED command.
       - script: |
+          cat $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
           sed -i '$d' $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
           sed -i '$d' $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
+          cat $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
         displayName: 'Removing the last 2 lines from the Checkov Report'
         name: CheckovReportCleanup
         condition: always()
