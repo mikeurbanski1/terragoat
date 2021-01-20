@@ -31,10 +31,7 @@ stages:
       # To Remove the lines from the source file itself, use the -i option with SED command.
       - script: |
           cat $(System.DefaultWorkingDirectory)/Checkov-Report.xml
-          sed -i '$d' $(System.DefaultWorkingDirectory)/Checkov-Report.xml
-          sed -i '$d' $(System.DefaultWorkingDirectory)/Checkov-Report.xml
-          cat $(System.DefaultWorkingDirectory)/Checkov-Report.xml
-        displayName: 'Removing the last 2 lines from the Checkov Report'
+        displayName: 'Print the junit XML'
         name: CheckovReportCleanup
         condition: always()
       
