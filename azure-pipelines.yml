@@ -19,7 +19,7 @@ stages:
       - script: |
           mkdir CheckovReport
           docker pull bridgecrew/checkov
-          docker run -t -v $(System.DefaultWorkingDirectory)/Networking:/tf bridgecrew/checkov --directory /tf --output junitxml > $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
+          docker run -t -v $(System.DefaultWorkingDirectory):/tf bridgecrew/checkov --directory /tf --output junitxml > $(System.DefaultWorkingDirectory)/Checkov-Report.xml
         displayName: 'Checkov Static Code Analysis'
         name: CheckovScan
         condition: always()
@@ -30,10 +30,10 @@ stages:
       # However the SED command does not remove the lines from the source file. 
       # To Remove the lines from the source file itself, use the -i option with SED command.
       - script: |
-          cat $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
-          sed -i '$d' $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
-          sed -i '$d' $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
-          cat $(System.DefaultWorkingDirectory)/CheckovReport/Checkov-Report.xml
+          cat $(System.DefaultWorkingDirectory)/Checkov-Report.xml
+          sed -i '$d' $(System.DefaultWorkingDirectory)/Checkov-Report.xml
+          sed -i '$d' $(System.DefaultWorkingDirectory)/Checkov-Report.xml
+          cat $(System.DefaultWorkingDirectory)/Checkov-Report.xml
         displayName: 'Removing the last 2 lines from the Checkov Report'
         name: CheckovReportCleanup
         condition: always()
@@ -43,7 +43,7 @@ stages:
         displayName: 'Publish Artifact: Checkov Report'
         condition: succeededOrFailed()
         inputs:
-          PathtoPublish: '$(System.DefaultWorkingDirectory)/CheckovReport'
+          PathtoPublish: '$(System.DefaultWorkingDirectory)'
           ArtifactName: CheckovReport
 
       # Publish the results of the Checkov analysis as Test Results to the pipeline
@@ -56,7 +56,7 @@ stages:
         inputs:
           testResultsFormat: 'JUnit' # Options JUnit, NUnit, VSTest, xUnit, cTest
           testResultsFiles: '**/*Checkov-Report.xml'
-          searchFolder: '$(System.DefaultWorkingDirectory)/CheckovReport'
+          searchFolder: '$(System.DefaultWorkingDirectory)'
           mergeTestResults: false
           testRunTitle: Checkov Scan
           failTaskOnFailedTests: false
