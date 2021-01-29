@@ -1,4 +1,5 @@
 resource "aws_sqs_queue" "q" {
+  #bridgecrew:skip=BC_AWS_GENERAL_16:Ensure all Data Stored in the SQS Queue is Encrypted
   name                       = "${var.env}_${var.region}_pairs_dlp_no4"
   visibility_timeout_seconds = var.visibility_timeout_seconds
   delay_seconds              = var.delay_seconds
