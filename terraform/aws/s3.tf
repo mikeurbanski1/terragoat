@@ -1,3 +1,19 @@
+module "m1" {
+  source = "./module"
+  versioning = true
+}
+
+module "m2" {
+  source = "./module"
+  versioning = false
+}
+
+module "m3" {
+  source = "./module"
+  versioning = false
+  acl = "private"
+}
+
 resource "aws_s3_bucket" "data" {
   bucket = "${local.resource_prefix.value}-data"
   acl = "public-read"

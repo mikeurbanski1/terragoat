@@ -4,11 +4,11 @@ provider "aws" {
   version = "3.7.0"
 }
 
-terraform {
-  backend "s3" {
-    encrypt = true
-  }
-}
+//terraform {
+//  backend "s3" {
+//    encrypt = true
+//  }
+//}
 
 //module "bridgecrew-read-only" {
 //  source  = "bridgecrewio/bridgecrew-read-only/aws"
