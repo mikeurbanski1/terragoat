@@ -29,6 +29,25 @@ resource "aws_security_group" "web-node" {
   depends_on = [aws_vpc.web_vpc]
 }
 
+resource "aws_instance" "instance1" {
+  ami           = "ami-123"
+  instance_type = "t3.micro"
+  
+  iam_instance_profile = "xyz"
+
+  tags = {
+    noprofile = "true"
+  }
+}
+
+resource "aws_instance" "instance2" {
+  ami           = "ami-123"
+  instance_type = "t3.micro"
+  
+  iam_instance_profile = "xyz"
+
+}
+
 resource "aws_vpc" "web_vpc" {
   cidr_block           = "172.16.0.0/16"
   enable_dns_hostnames = true
