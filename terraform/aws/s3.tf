@@ -1,6 +1,6 @@
 module "m1" {
   source = "./module"
-  versioning = true
+  versioning = false
 }
 
 module "m2" {
