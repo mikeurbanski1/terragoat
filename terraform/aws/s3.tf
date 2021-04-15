@@ -13,6 +13,17 @@ module "m3" {
   versioning = false
   acl = "private"
 }
+  
+  
+resource "aws_s3_bucket" "xxx" {
+  bucket = "${local.resource_prefix.value}-xxx"
+  acl = "public-read"
+  force_destroy = true
+  tags = {
+    Owner = "data-team"
+    Environment = local.resource_prefix.value
+  }
+}
 
 resource "aws_s3_bucket" "data" {
   bucket = "${local.resource_prefix.value}-data"
