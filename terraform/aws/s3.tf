@@ -22,6 +22,16 @@ resource "aws_s3_bucket" "xxxxxxx" {
     Owner = "data-team"
     Environment = local.resource_prefix.value
   }
+  versioning {
+    enabled = true
+  }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 }
 
 resource "aws_s3_bucket" "data" {
@@ -173,5 +183,8 @@ resource "aws_s3_bucket" "conf7" {
         sse_algorithm = "AES256"
       }
     }
+  }
+  versioning {
+    enabled = true
   }
 }
