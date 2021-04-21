@@ -77,6 +77,9 @@ resource "aws_s3_bucket" "conf1" {
   tags = {
     DataClassification = "Confidential"
   }
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_s3_bucket" "conf2" {
@@ -107,6 +110,9 @@ resource "aws_s3_bucket" "conf3" {
         kms_master_key_id = aws_kms_key.s3_kms.arn
       }
     }
+  }
+  versioning {
+    enabled = true
   }
 }
 
