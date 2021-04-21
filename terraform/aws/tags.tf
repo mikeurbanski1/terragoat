@@ -25,6 +25,9 @@ resource "aws_s3_bucket" "b1" {
     sa_id = "123"
     os = "rhel"
   }
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_s3_bucket" "b2" {
