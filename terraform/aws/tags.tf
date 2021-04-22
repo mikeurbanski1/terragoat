@@ -25,6 +25,9 @@ resource "aws_s3_bucket" "b1" {
     sa_id = "123"
     os = "rhel"
   }
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_s3_bucket" "b2" {
@@ -33,6 +36,9 @@ resource "aws_s3_bucket" "b2" {
     asknowID = "123"
     atc = "123"
     sa_id = "123"
+  }
+  versioning {
+    enabled = true
   }
 }
 

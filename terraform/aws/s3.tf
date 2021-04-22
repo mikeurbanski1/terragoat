@@ -77,6 +77,9 @@ resource "aws_s3_bucket" "conf1" {
   tags = {
     DataClassification = "Confidential"
   }
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_s3_bucket" "conf2" {
