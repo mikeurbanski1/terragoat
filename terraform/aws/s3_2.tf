@@ -15,3 +15,9 @@ resource "aws_s3_bucket" "logs" {
     }
   }
 }
+
+
+resource "aws_s3_bucket" "logs2" {
+
+  bucket = "x"
+}
