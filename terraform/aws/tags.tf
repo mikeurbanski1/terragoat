@@ -44,6 +44,7 @@ resource "aws_instance" "i1" {
     sa_id = "123"
     os = "windows"
   }
+  ebs_optimized = true
 }
 
 resource "aws_instance" "i2" {
