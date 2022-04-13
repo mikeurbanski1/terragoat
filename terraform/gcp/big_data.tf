@@ -4,6 +4,11 @@ resource google_sql_database_instance "master_instance" {
   region           = var.region
 }
 
+resource google_sql_database_instance "master_instance2" {
+  name             = "terragoat-${var.environment}-master"
+  database_version = "POSTGRES_11"
+  region           = var.region
+}
 
 resource google_bigquery_dataset "dataset" {
   dataset_id = "terragoat_${var.environment}_dataset"
