@@ -66,6 +66,10 @@ resource "aws_s3_bucket" "logs" {
     Environment = local.resource_prefix.value
   }
 }
+  
+resource "aws_s3_bucket" "logs2" {
+  bucket = "${local.resource_prefix.value}-logs"
+}
 
 resource "aws_kms_key" "s3_kms" {
 
