@@ -1,3 +1,7 @@
+resource "aws_s3_bucket" "data2222" {
+  bucket = "aaaaaa"
+}
+
 module "m1" {
   source = "./module"
   versioning = true
