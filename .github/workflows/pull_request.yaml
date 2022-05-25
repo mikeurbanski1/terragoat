@@ -16,5 +16,4 @@ jobs:
         with:
          api-key: ${{ secrets.BRIDGECREW_API_KEY }}
          directory: "terraform/aws"
-         framework: terraform
          log_level: DEBUG
