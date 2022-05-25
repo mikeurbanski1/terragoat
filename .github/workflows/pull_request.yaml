@@ -10,11 +10,11 @@ jobs:
         python-version: [3.7]
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+      - name: Run Bridgecrew 
+        id: Bridgecrew
+        uses: bridgecrewio/bridgecrew-action@master
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Scan with Bridgecrew
-        run: |
-          pip install -U bridgecrew
-          bridgecrew -d terraform/aws --external-checks-git https://github.com/bridgecrewio/sample-custom-checks.git//external_checks
+         api-key: ${{ secrets.BRIDGECREW_API_KEY }}
+         directory: "terraform/aws"
+         framework: terraform
+         log_level: DEBUG
