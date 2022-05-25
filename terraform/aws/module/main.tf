@@ -1,5 +1,5 @@
 variable "acl" {
-  type = string
+  type    = string
   default = "public-read"
 }
 
@@ -9,11 +9,14 @@ variable "versioning" {
 
 
 resource "aws_s3_bucket" "module-bucket" {
-  bucket = "module-bucket"
-  acl = var.acl
+  bucket        = "module-bucket"
+  acl           = var.acl
   force_destroy = true
 
   versioning {
     enabled = var.versioning
+  }
+  tags = {
+    try = ""
   }
 }
