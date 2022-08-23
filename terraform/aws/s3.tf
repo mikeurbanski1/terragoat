@@ -13,6 +13,25 @@ module "m3" {
   versioning = false
   acl = "private"
 }
+  
+resource "aws_s3_bucket" "data1234" {
+  # checkov:skip=BC_AWS_S3_1:not needed
+  bucket = "${local.resource_prefix.value}-data"
+  acl = "public-read"
+  force_destroy = true
+  tags = {
+    Owner = "data-team"
+    Environment = local.resource_prefix.value
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+}
 
 resource "aws_s3_bucket" "data" {
   bucket = "${local.resource_prefix.value}-data"
