@@ -9,11 +9,11 @@ jobs:
       matrix:
         python-version: [3.7]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Run Bridgecrew 
         id: Bridgecrew
-        uses: bridgecrewio/bridgecrew-action@master
+        uses: bridgecrewio/bridgecrew-action@master 
+        env:
+          PRISMA_API_URL: https://api0.prismacloud.io
         with:
-         api-key: ${{ secrets.BRIDGECREW_API_KEY }}
-         directory: "terraform/aws"
-         log_level: DEBUG
+          api-key: ${{ secrets.BRIDGECREW_API_KEY }}
