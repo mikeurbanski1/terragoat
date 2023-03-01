@@ -35,8 +35,6 @@ resource "aws_s3_bucket" "data999" {
 
 resource "aws_s3_bucket" "bbbbbbb" {
   
-  
-  
 }
   
 resource "aws_s3_bucket" "data1234" {
