@@ -14,7 +14,7 @@ jobs:
         id: Bridgecrew
         uses: bridgecrewio/bridgecrew-action@master 
         env:
-          LOG_LEVEL: DEBUG
           PRISMA_API_URL: https://api0.prismacloud.io
         with:
           api-key: ${{ secrets.BRIDGECREW_API_KEY }}
+          log_level: DEBUG
