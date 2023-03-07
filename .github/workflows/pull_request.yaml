@@ -16,5 +16,5 @@ jobs:
         env:
           PRISMA_API_URL: https://api0.prismacloud.io
         with:
-          api-key: ${{ secrets.BRIDGECREW_API_KEY }}
+          use_enforcement_rules: true
           log_level: DEBUG
