@@ -23,6 +23,7 @@ resource "aws_db_instance" "default" {
   tags = {
     Name        = "${local.resource_prefix.value}-rds"
     Environment = local.resource_prefix.value
+    yor_trace   = "a6322d23-bee6-4bcb-aa06-5228ea206b5d"
   }
 
   # Ignore password changes from tf plan diff
@@ -40,6 +41,7 @@ resource "aws_db_option_group" "default" {
   tags = {
     Name        = "${local.resource_prefix.value}-og"
     Environment = local.resource_prefix.value
+    yor_trace   = "3b809f47-3379-4514-9d69-3e9c26ce05f3"
   }
 }
 
@@ -63,6 +65,7 @@ resource "aws_db_parameter_group" "default" {
   tags = {
     Name        = "${local.resource_prefix.value}-pg"
     Environment = local.resource_prefix.value
+    yor_trace   = "116997b8-7628-4668-820e-5402911f7018"
   }
 }
 
@@ -74,6 +77,7 @@ resource "aws_db_subnet_group" "default" {
   tags = {
     Name        = "sg-${local.resource_prefix.value}"
     Environment = local.resource_prefix.value
+    yor_trace   = "a80973ae-75ba-4cb3-97cd-54a6a885f278"
   }
 }
 
@@ -84,6 +88,7 @@ resource "aws_security_group" "default" {
   tags = {
     Name        = "${local.resource_prefix.value}-rds-sg"
     Environment = local.resource_prefix.value
+    yor_trace   = "4dc68a93-35d9-4913-9c47-713ba3cec97e"
   }
 }
 

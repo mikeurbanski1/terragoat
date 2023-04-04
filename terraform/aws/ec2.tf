@@ -27,25 +27,32 @@ resource "aws_security_group" "web-node" {
     "0.0.0.0/0"]
   }
   depends_on = [aws_vpc.web_vpc]
+  tags = {
+    yor_trace = "057113f5-d1f1-49e6-89e3-c316bad88cc2"
+  }
 }
 
 resource "aws_instance" "instance1" {
   ami           = "ami-123"
   instance_type = "t3.micro"
-  
+
   iam_instance_profile = "xyz"
 
   tags = {
     noprofile = "true"
+    yor_trace = "f6c26a07-3271-4cf3-85b3-26478facb33c"
   }
 }
 
 resource "aws_instance" "instance2" {
   ami           = "ami-123"
   instance_type = "t3.micro"
-  
+
   iam_instance_profile = "xyz"
 
+  tags = {
+    yor_trace = "c7160a59-80db-444b-8cba-64222e4e03d6"
+  }
 }
 
 resource "aws_vpc" "web_vpc" {
@@ -53,7 +60,8 @@ resource "aws_vpc" "web_vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
   tags = {
-    Name = "${local.resource_prefix.value}-vpc"
+    Name      = "${local.resource_prefix.value}-vpc"
+    yor_trace = "4c70d3e9-0f89-4111-bcc9-9c0e1236a6f4"
   }
 }
 
@@ -64,7 +72,8 @@ resource "aws_subnet" "web_subnet" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${local.resource_prefix.value}-subnet"
+    Name      = "${local.resource_prefix.value}-subnet"
+    yor_trace = "523ea4e5-178a-4fe4-b0aa-3a3058daa0ab"
   }
 }
 
@@ -75,7 +84,8 @@ resource "aws_subnet" "web_subnet2" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${local.resource_prefix.value}-subnet2"
+    Name      = "${local.resource_prefix.value}-subnet2"
+    yor_trace = "c1db6f8b-31c9-49f1-ad16-9263d8aa5843"
   }
 }
 
@@ -84,7 +94,8 @@ resource "aws_internet_gateway" "web_igw" {
   vpc_id = aws_vpc.web_vpc.id
 
   tags = {
-    Name = "${local.resource_prefix.value}-igw"
+    Name      = "${local.resource_prefix.value}-igw"
+    yor_trace = "d8c2d8df-d22d-4176-b372-cc4522b75013"
   }
 }
 
@@ -92,7 +103,8 @@ resource "aws_route_table" "web_rtb" {
   vpc_id = aws_vpc.web_vpc.id
 
   tags = {
-    Name = "${local.resource_prefix.value}-rtb"
+    Name      = "${local.resource_prefix.value}-rtb"
+    yor_trace = "6d72edc0-7e2d-4ae2-b2ca-0b9c0b1b7b6b"
   }
 }
 
@@ -122,7 +134,8 @@ resource "aws_network_interface" "web-eni" {
   private_ips = ["172.16.10.100"]
 
   tags = {
-    Name = "${local.resource_prefix.value}-primary_network_interface"
+    Name      = "${local.resource_prefix.value}-primary_network_interface"
+    yor_trace = "f7b5f318-106e-44fb-acf5-9d6b781f92b1"
   }
 }
 
