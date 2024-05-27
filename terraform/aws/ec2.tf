@@ -27,25 +27,32 @@ resource "aws_security_group" "web-node" {
     "0.0.0.0/0"]
   }
   depends_on = [aws_vpc.web_vpc]
+  tags = {
+    try = ""
+  }
 }
 
 resource "aws_instance" "instance1" {
   ami           = "ami-123"
   instance_type = "t3.micro"
-  
+
   iam_instance_profile = "xyz"
 
   tags = {
     noprofile = "true"
+    try       = ""
   }
 }
 
 resource "aws_instance" "instance2" {
   ami           = "ami-123"
   instance_type = "t3.micro"
-  
+
   iam_instance_profile = "xyz"
 
+  tags = {
+    try = ""
+  }
 }
 
 resource "aws_vpc" "web_vpc" {
@@ -54,6 +61,7 @@ resource "aws_vpc" "web_vpc" {
   enable_dns_support   = true
   tags = {
     Name = "${local.resource_prefix.value}-vpc"
+    try  = ""
   }
 }
 
@@ -65,6 +73,7 @@ resource "aws_subnet" "web_subnet" {
 
   tags = {
     Name = "${local.resource_prefix.value}-subnet"
+    try  = ""
   }
 }
 
@@ -76,6 +85,7 @@ resource "aws_subnet" "web_subnet2" {
 
   tags = {
     Name = "${local.resource_prefix.value}-subnet2"
+    try  = ""
   }
 }
 
@@ -85,6 +95,7 @@ resource "aws_internet_gateway" "web_igw" {
 
   tags = {
     Name = "${local.resource_prefix.value}-igw"
+    try  = ""
   }
 }
 
@@ -93,6 +104,7 @@ resource "aws_route_table" "web_rtb" {
 
   tags = {
     Name = "${local.resource_prefix.value}-rtb"
+    try  = ""
   }
 }
 
@@ -123,6 +135,7 @@ resource "aws_network_interface" "web-eni" {
 
   tags = {
     Name = "${local.resource_prefix.value}-primary_network_interface"
+    try  = ""
   }
 }
 

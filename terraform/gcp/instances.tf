@@ -18,8 +18,11 @@ resource google_compute_instance "server" {
 
   metadata = {
     block-project-ssh-keys = true
-    serial-port-enable = true
+    serial-port-enable     = true
     enable-oslogin         = false
+  }
+  labels = {
+    try = ""
   }
 }
 
@@ -27,4 +30,7 @@ resource google_compute_instance "server" {
 
 resource google_compute_disk "unencrypted_disk" {
   name = "terragoat-${var.environment}-disk"
+  labels = {
+    try = ""
+  }
 }
