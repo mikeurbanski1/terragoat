@@ -107,6 +107,14 @@ resource "aws_s3_bucket" "logs" {
 resource "aws_kms_key" "s3_kms" {
 
 }
+  
+resource "aws_s3_bucket" "conf1234" {
+  bucket = "bc-confidential-1"
+  force_destroy = true
+  tags = {
+    DataClassification = "Confidential"
+  }
+}
 
 resource "aws_s3_bucket" "conf1" {
   bucket = "bc-confidential-1"
