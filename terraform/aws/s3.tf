@@ -52,6 +52,7 @@ resource "aws_s3_bucket" "data1234" {
 }
 
 resource "aws_s3_bucket" "data" {
+  
   bucket = "${local.resource_prefix.value}-data"
   acl = "public-read"
   force_destroy = true
@@ -76,6 +77,7 @@ resource "aws_s3_bucket" "data_science" {
     enabled = true
   }
 
+  
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
