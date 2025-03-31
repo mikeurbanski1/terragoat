@@ -34,6 +34,9 @@ resource "aws_s3_bucket" "b2" {
     atc = "123"
     sa_id = "123"
   }
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_instance" "i1" {
