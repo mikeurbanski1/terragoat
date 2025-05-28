@@ -1,27 +1,28 @@
 module "m1" {
-  source = "./module"
+  source     = "./module"
   versioning = true
 }
 
 module "m2" {
-  source = "./module"
+  source     = "./module"
   versioning = false
 }
 
 module "m3" {
-  source = "./module"
+  source     = "./module"
   versioning = false
-  acl = "private"
+  acl        = "private"
 }
-  
+
 resource "aws_s3_bucket" "data999" {
   # checkov:skip=BC_AWS_S3_1:not needed
-  bucket = "${local.resource_prefix.value}-data"
-  acl = "public-read"
+  bucket        = "${local.resource_prefix.value}-data"
+  acl           = "public-read"
   force_destroy = true
   tags = {
-    Owner = "data-team"
+    Owner       = "data-team"
     Environment = local.resource_prefix.value
+    try         = ""
   }
 
   server_side_encryption_configuration {
@@ -32,14 +33,15 @@ resource "aws_s3_bucket" "data999" {
     }
   }
 }
-  
+
 resource "aws_s3_bucket" "data1234" {
-  bucket = "${local.resource_prefix.value}-data"
-  acl = "public-read"
+  bucket        = "${local.resource_prefix.value}-data"
+  acl           = "public-read"
   force_destroy = true
   tags = {
-    Owner = "data-team"
+    Owner       = "data-team"
     Environment = local.resource_prefix.value
+    try         = ""
   }
 
   server_side_encryption_configuration {
@@ -52,12 +54,13 @@ resource "aws_s3_bucket" "data1234" {
 }
 
 resource "aws_s3_bucket" "data" {
-  bucket = "${local.resource_prefix.value}-data"
-  acl = "public-read"
+  bucket        = "${local.resource_prefix.value}-data"
+  acl           = "public-read"
   force_destroy = true
   tags = {
-    Owner = "data-team"
+    Owner       = "data-team"
     Environment = local.resource_prefix.value
+    try         = ""
   }
 
   server_side_encryption_configuration {
@@ -71,7 +74,7 @@ resource "aws_s3_bucket" "data" {
 
 resource "aws_s3_bucket" "data_science" {
   bucket = "${local.resource_prefix.value}-data-science"
-  acl = "private"
+  acl    = "private"
   versioning {
     enabled = true
   }
@@ -89,38 +92,47 @@ resource "aws_s3_bucket" "data_science" {
     target_prefix = "log/"
   }
   force_destroy = true
+  tags = {
+    try = ""
+  }
 }
 
 resource "aws_s3_bucket" "logs" {
   bucket = "${local.resource_prefix.value}-logs"
-  acl = "log-delivery-write"
+  acl    = "log-delivery-write"
   versioning {
     enabled = true
   }
   force_destroy = true
   tags = {
-    Name = "${local.resource_prefix.value}-logs"
+    Name        = "${local.resource_prefix.value}-logs"
     Environment = local.resource_prefix.value
+    try         = ""
   }
 }
 
 resource "aws_kms_key" "s3_kms" {
 
+  tags = {
+    try = ""
+  }
 }
 
 resource "aws_s3_bucket" "conf1" {
-  bucket = "bc-confidential-1"
+  bucket        = "bc-confidential-1"
   force_destroy = true
   tags = {
     DataClassification = "Confidential"
+    try                = ""
   }
 }
 
 resource "aws_s3_bucket" "conf2" {
-  bucket = "bc-confidential-2"
+  bucket        = "bc-confidential-2"
   force_destroy = true
   tags = {
     DataClassification = "Confidential"
+    try                = ""
   }
   server_side_encryption_configuration {
     rule {
@@ -132,15 +144,16 @@ resource "aws_s3_bucket" "conf2" {
 }
 
 resource "aws_s3_bucket" "conf3" {
-  bucket = "bc-confidential-3"
+  bucket        = "bc-confidential-3"
   force_destroy = true
   tags = {
     DataClassification = "Confidential"
+    try                = ""
   }
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm = "aws:kms"
+        sse_algorithm     = "aws:kms"
         kms_master_key_id = aws_kms_key.s3_kms.arn
       }
     }
@@ -148,18 +161,20 @@ resource "aws_s3_bucket" "conf3" {
 }
 
 resource "aws_s3_bucket" "conf4" {
-  bucket = "bc-confidential-4"
+  bucket        = "bc-confidential-4"
   force_destroy = true
   tags = {
     DataClassification = "Highly confidential"
+    try                = ""
   }
 }
 
 resource "aws_s3_bucket" "conf5" {
-  bucket = "bc-confidential-5"
+  bucket        = "bc-confidential-5"
   force_destroy = true
   tags = {
     DataClassification = "Highly confidential"
+    try                = ""
   }
   server_side_encryption_configuration {
     rule {
@@ -171,16 +186,17 @@ resource "aws_s3_bucket" "conf5" {
 }
 
 resource "aws_s3_bucket" "conf6" {
-  bucket = "bc-confidential-6"
+  bucket        = "bc-confidential-6"
   force_destroy = true
   tags = {
     DataClassification = "Highly confidential"
+    try                = ""
   }
 
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm = "aws:kms"
+        sse_algorithm     = "aws:kms"
         kms_master_key_id = aws_kms_key.s3_kms.arn
       }
     }
@@ -188,10 +204,11 @@ resource "aws_s3_bucket" "conf6" {
 }
 
 resource "aws_s3_bucket" "conf7" {
-  bucket = "bc-confidential-6"
+  bucket        = "bc-confidential-6"
   force_destroy = true
   tags = {
     DataClassification = "Public"
+    try                = ""
   }
 
   server_side_encryption_configuration {
